@@ -2,28 +2,40 @@ import { signInAction } from "./actions";
 import { push } from "connected-react-router";
 import { auth, FirebaseTimestamp, db } from "../../firebase/index"
 
-export const signIn = () => {
-  return async (dispatch, getState) => {
-    const state = getState()
-    const isSignedIn = state.users.isSignedIn
-
-    if (!isSignedIn) {
-      const url = 'https://api.github.com/users/shuntagami'
-
-      const response = await fetch(url)
-                          .then(res => res.json())
-                          .catch(() => null)
-
-      const username = response.login
-
-      dispatch(signInAction({
-        isSignedIn: true,
-        uid: '0001',
-        username: username
-      }))
-      dispatch(push('/'))
+export const signIn = (email, password) => {
+  return async (dispatch) => {
+    //validation
+    if (email === "" || password === "") {
+      alert("必須項目が未入力です");
+      return false;
     }
-  };
+
+    auth.signInWithEmailAndPassword(email, password).then((result) => {
+      const user = result.user;
+      if (user) {
+        const uid = user.uid;
+        db.collection("users")
+          .doc(uid)
+          .get()
+          .then((snapshot) => {
+            const data = snapshot.data();
+
+            dispatch(
+              signInAction({
+                isSignedIn: true,
+                uid: uid,
+                role: data.role,
+                username: data.username,
+              })
+            );
+            dispatch(push("/"));
+          });
+      }
+    }).catch((error) => {
+      // TODO:
+      console.log(error)
+    });
+  }
 };
 
 export const signUp = (username, email, password, confirmPassword) => {
