@@ -7,6 +7,7 @@ import { connectRouter, routerMiddleware } from "connected-react-router";
 import thunk from "redux-thunk";
 
 //import reducers
+import { ProductsReducer } from "../products/reducers";
 import { UsersReducer } from "../users/reducers";
 
 export default function createStore(history) {
@@ -15,6 +16,7 @@ export default function createStore(history) {
     // 2.stateのカテゴリ別
     // 3.オブジェクトをreturnする(stateのデータ構造)
     combineReducers({
+      products: ProductsReducer,
       router: connectRouter(history),
       users: UsersReducer,
     }),
