@@ -57,6 +57,7 @@ const SignIn = () => {
         />
         <div className="module-spacer--medium" />
         <p onClick={() => dispatch(push("/signup"))}>アカウント登録はこちら</p>
+        <p onClick={() => dispatch(push("/signin/reset"))}>パスワードを忘れた方はこちら</p>
       </div>
     </div>
   );
