@@ -10,8 +10,8 @@ const Home = () => {
   return (
     <div>
       <h2>Home</h2>
-      <p>{ uid }</p>
-      <p>{ userName }</p>
+      <p>ユーザーID: { uid }</p>
+      <p>ユーザー名: { userName }</p>
     </div>
   )
 }
