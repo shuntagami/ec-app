@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { makeStyles } from "@material-ui/core";
 import { TextInput } from "../UIkit";
 
@@ -82,9 +82,9 @@ const SetSizeArea = (props) => {
     props.setSizes(newSizes);
   };
 
-  const memoIndex = useMemo(() => {
-    setIndex(props.sizes.length)
-  }, [props.sizes.length])
+  useEffect(() => {
+      setIndex(props.sizes.length)
+  },[props.sizes.length])
 
   return (
     <div>
