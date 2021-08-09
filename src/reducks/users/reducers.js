@@ -1,6 +1,7 @@
 import * as Actions from "./actions";
 import initialState from "../store/initialState";
 
+// 現在のstateとActionから、新しいstateを生成する
 export const UsersReducer = (state = initialState.users, action) => {
   switch (action.type) {
     case Actions.SIGN_IN:
