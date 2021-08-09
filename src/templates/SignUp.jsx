@@ -7,11 +7,15 @@ import { push } from 'connected-react-router'
 const SignUp = () => {
   const dispatch = useDispatch()
 
+  // ローカルでstateを定義
+  // const [状態変数, 状態を変更するための関数] = useState(状態の初期値);
   const [username, setUsername] = useState(""),
     [email, setEmail] = useState(""),
     [password, setPassword] = useState(""),
     [confirmPassword, setConfirmPassword] = useState("");
 
+  // useCallbackでメモか。setUsernameが変更された時のみ呼び出す。
+  // メモかした関数(inputUserName)はonChangeに渡すときに()をつけず、そのまま呼び出すことに注意
   const iunputUserName = useCallback((e) => {
     setUsername(e.target.value)
   }, [setUsername]);
