@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getSignedIn } from "../../reducks/users/selectors";
 import logo from "../../assets/img/icons/logo.png";
 import { push } from "connected-react-router";
-import { HeaderMenus } from "./index";
+import { HeaderMenus, ClosableDrawer } from "./index";
 
 const useStyles = makeStyles({
   root: {
@@ -32,6 +32,15 @@ const Header = () => {
   const selector = useSelector((state) => state);
   const isSignedIn = getSignedIn(selector);
 
+  const [open, setOpen] = useState(false)
+
+  const handleDrawerToggle = useCallback((event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return
+    }
+    setOpen(!open)
+  }, [setOpen, open])
+
   return (
     <div className={classes.root}>
       <AppBar position="fixed" className={classes.menuBar}>
@@ -45,11 +54,12 @@ const Header = () => {
           />
           {isSignedIn && (
             <div className={classes.iconButtons}>
-              <HeaderMenus />
+              <HeaderMenus handleDrawerToggle={handleDrawerToggle} />
             </div>
           )}
         </Toolbar>
       </AppBar>
+      <ClosableDrawer open={open} onClose={handleDrawerToggle} />
     </div>
   );
 };
