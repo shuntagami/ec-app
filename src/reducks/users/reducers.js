@@ -4,6 +4,11 @@ import initialState from "../store/initialState";
 // 現在のstateとActionから、新しいstateを生成する
 export const UsersReducer = (state = initialState.users, action) => {
   switch (action.type) {
+    case Actions.FETCH_PRODUCTS_IN_CART:
+      return {
+        ...state,
+        cart: [...action.payload]
+      };
     case Actions.SIGN_IN:
       return {
         ...state,
