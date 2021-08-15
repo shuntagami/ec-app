@@ -1,4 +1,4 @@
-import { signInAction, signOutAction, fetchProductsInCartAction } from "./actions";
+import { signInAction, signOutAction, fetchProductsInCartAction, fetchOrdersHistoryAction } from "./actions";
 import { push } from "connected-react-router";
 import { auth, FirebaseTimestamp, db } from "../../firebase/index"
 
@@ -9,6 +9,26 @@ export const addProductToCart = (addedProduct) => {
     addedProduct['cartId'] = cartRef.id
     await cartRef.set(addedProduct)
     dispatch(push('/'))
+  }
+}
+
+export const fetchOrdersHistory = (products) => {
+  return async (dispatch, getState) => {
+    const uid = getState().users.uid
+    const list = []
+
+    db.collection('users').doc(uid)
+      .collection('orders')
+      .orderBy('updated_at', 'desc')
+      .get()
+      .then((snapshots) => {
+        snapshots.forEach(snapshot => {
+          const data = snapshot.data()
+          list.push(data)
+        })
+
+        dispatch(fetchOrdersHistoryAction(list))
+      })
   }
 }
 
