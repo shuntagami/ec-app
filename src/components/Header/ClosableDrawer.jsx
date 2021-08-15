@@ -14,7 +14,7 @@ import PersonIcon from "@material-ui/icons/Person";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { TextInput } from "../UIkit";
 import { useDispatch } from "react-redux";
-import {push} from 'connected-react-router'
+import { push } from "connected-react-router";
 import { signOut } from "../../reducks/users/operations";
 
 const useStyles = makeStyles((theme) => ({
@@ -110,11 +110,13 @@ const ClosableDrawer = (props) => {
           </div>
           <Divider />
           <List>
-            {menus.map(menu => (
-              <ListItem button key={menu.id} onClick={(e) => menu.func(e, menu.value)}>
-                <ListItemIcon>
-                  {menu.icon}
-                </ListItemIcon>
+            {menus.map((menu) => (
+              <ListItem
+                button
+                key={menu.id}
+                onClick={(e) => menu.func(e, menu.value)}
+              >
+                <ListItemIcon>{menu.icon}</ListItemIcon>
                 <ListItemText primary={menu.label} />
               </ListItem>
             ))}
