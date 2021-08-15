@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { ProductCard } from '../components/Products'
-import { fetchProducts } from '../reducks/products/operations';
-import { getProducts } from '../reducks/products/selector';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { ProductCard } from "../components/Products";
+import { fetchProducts } from "../reducks/products/operations";
+import { getProducts } from "../reducks/products/selector";
 
 const ProductList = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   // 現在のreduxのstoreのstate全体が入っている
   const selector = useSelector((state) => state);
@@ -14,14 +14,14 @@ const ProductList = () => {
   const products = getProducts(selector);
 
   useEffect(() => {
-    dispatch(fetchProducts())
-  },[])
+    dispatch(fetchProducts());
+  }, []);
 
   return (
     <section className="c-section-wrapin">
       <div className="p-grid__row">
-        {products.length > 0 && (
-          products.map(product => (
+        {products.length > 0 &&
+          products.map((product) => (
             <ProductCard
               key={product.id}
               id={product.id}
@@ -29,11 +29,10 @@ const ProductList = () => {
               images={product.images}
               price={product.price}
             />
-          ))
-        )}
+          ))}
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default ProductList
+export default ProductList;
